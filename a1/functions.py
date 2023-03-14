@@ -1,3 +1,5 @@
+import math
+
 def basic_decode(key, message, indicator):
 
     '''
@@ -169,3 +171,45 @@ def reverse_key(key):
         i += 2
     return out
 
+# Key function for sorting lists
+# Sorts the list by the second piece of data (frequency)
+def second(n):
+    return n[1]
+
+# Sorts the list by the fifth piece of data
+def fifth(n):
+    return n[4]
+  
+# Hueristic function based on frequency analysis (task 5)
+# Modified such that the message itself is passed rather than the filename
+def h(message, is_goal):
+    # Check if we're at a goal node (hueristic = 0)
+    if is_goal:
+        return 0
+    
+    # Open the message
+    msg = message
+    
+    # Determine the frequency of desired letters in the message
+    # Note that punctuation doesn't matter so make all letters uppercase (to match freq)
+    letters = "AENOST"
+    letters = list(letters)
+    msg = msg.upper()
+    freq = [msg.count(letters[i]) for i in range(len(letters))]
+    
+    # Store the frequencies alongside the letters in a struct and order based on frequency
+    # POSSIBLE ERROR - does this account for alphabetical ordering in the case of a tie? 
+      # Maybe it is fine because "AENOST" is already in alphabetical order
+    letterFreq = [(letters[i], freq[i]) for i in range(len(letters))]
+    letterFreq = sorted(letterFreq, key = second, reverse = True)
+ 
+    # Compare the ordering with the goal (ETAONS)
+    count = 0
+    goal = list("ETAONS")
+    for i in range(len(goal)):
+        if goal[i] != letterFreq[i][0]:
+            count += 1
+        
+        # print(f"{goal[i]} {letterFreq[i][0]}") # DEBUGGING
+    
+    return math.ceil(count/2)  
