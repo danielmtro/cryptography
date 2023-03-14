@@ -251,6 +251,9 @@ def task4(algorithm, message_filename, dictionary_filename, threshold, letters, 
     if algorithm == "i":
         return IDS(msg, letters, worddict, threshold, debug)
     
+    if algorithm == "u":
+        return BFS(msg, letters, worddict, threshold, debug)
+    
     return ''
 
 if __name__ == "__main__":
