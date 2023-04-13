@@ -34,27 +34,34 @@ def get_folds(training_filename, num_folds):
 
     #separate data into yes and no classes
     class_separation = separate_yes_no(training_data)
-    print(class_separation)
-    num_yes = len(class_separation['yes'])
-    num_no = len(class_separation['no'])
-
-    if num_yes > num_no:
-        num = num_no - 1
-    else:
-        num = num_yes - 1
-    
+    num_yes = len(class_separation['yes']) - 1
+    num_no = len(class_separation['no']) - 1
+    print(num_yes, num_no)
     fold_list = []
     for i in range(num_folds):
         fold_list.append([])
     
     count = 0
-    while num > 0:
-        fold = num%num_folds
-        fold_list[fold].append(class_separation['yes'][num])
-        fold_list[fold].append(class_separation['no'][num])
-        num -= 1
+    while num_yes >= 0:
+        fold = count%num_folds
+        fold_list[fold].append(class_separation['yes'][num_yes])
+        num_yes -= 1
         count += 1
     
+    count = 0
+    while num_no >= 0:
+        fold = count%num_folds
+        fold_list[fold].append(class_separation['no'][num_no])
+        num_no -= 1
+        count += 1
+    
+    c = 0
+    for i in fold_list:
+        for j in i:
+            c += 1
+
+    print(c)
+
     f = open('pima-folds.csv', 'w')
     fold_count = 1
     for fold in fold_list:
