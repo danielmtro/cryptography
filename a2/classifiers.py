@@ -161,8 +161,8 @@ def classify_nb(training_filename, testing_filename):
     full_training_data = list(csv.reader(f_train))
     
     #switch to the first line to remove the header line in files.
-    training_data = full_training_data[1:] 
-    #training_data = full_training_data
+    #training_data = full_training_data[1:] 
+    training_data = full_training_data
 
     testing_data = list(csv.reader(f_test))
 
@@ -171,6 +171,7 @@ def classify_nb(training_filename, testing_filename):
 
     #separate data into yes and no classes
     class_separation = separate_yes_no(training_data)
+
 
     #get the mean and standard deviation of each attribute 
     summarised_data = summarise_data(class_separation)
@@ -187,9 +188,8 @@ def classify_nb(training_filename, testing_filename):
     #print(output_list)
     return output_list
 
-train_file = 'cryptography\\a2\\data\\pima.csv'
-test_file = 'cryptography\\a2\\data\\example_test.csv'
-test_file = 'example_test2.txt'
+train_file = 'a2\\data\\pima.csv'
+test_file = 'a2\\data\\example_test.csv'
 classify_nb(train_file, test_file)
 
 
