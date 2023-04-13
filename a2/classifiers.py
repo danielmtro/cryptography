@@ -130,8 +130,7 @@ def predict(summarised_data, instance, yes_probability, no_probability):
     '''
 
     yes_total = 1
-    no_total = 1
-    
+    no_total = 1    
 
     #Calculate the probability of the instance belonging to yes
     attribute = 0                                             
@@ -171,7 +170,6 @@ def classify_nb(training_filename, testing_filename):
 
     #separate data into yes and no classes
     class_separation = separate_yes_no(training_data)
-
 
     #get the mean and standard deviation of each attribute 
     summarised_data = summarise_data(class_separation)
