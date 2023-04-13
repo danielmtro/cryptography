@@ -119,7 +119,7 @@ def summarise_data(dic):
     
     return output_dict
 
-def predict(summarised_data, instance):
+def predict(summarised_data, instance, yes_probability, no_probability):
     '''
     Function takes in a dictionary containing the statistical information regarding
     each attribute in each class of the training set. Also takes in an instance in the
@@ -131,9 +131,7 @@ def predict(summarised_data, instance):
 
     yes_total = 1
     no_total = 1
-    total_instances = len(summarised_data['no']) + len(summarised_data['yes'])
-    yes_probability = len(summarised_data['yes'])/total_instances
-    no_probability = len(summarised_data['no'])/total_instances
+    
 
     #Calculate the probability of the instance belonging to yes
     attribute = 0                                             
@@ -177,19 +175,33 @@ def classify_nb(training_filename, testing_filename):
     #get the mean and standard deviation of each attribute 
     summarised_data = summarise_data(class_separation)
 
+    total_instances = len(class_separation['no']) + len(class_separation['yes'])
+    yes_probability = len(class_separation['yes'])/total_instances
+    no_probability = len(class_separation['no'])/total_instances
+
     #test each instance of the test set 
     output_list = []
     for instance in testing_data:
-        output_list.append(predict(summarised_data, [float(x) for x in instance]))
+        output_list.append(predict(summarised_data, [float(x) for x in instance], yes_probability, no_probability))
 
-    print(output_list)
+    #print(output_list)
     return output_list
 
 train_file = 'cryptography\\a2\\data\\pima.csv'
 test_file = 'cryptography\\a2\\data\\example_test.csv'
+test_file = 'example_test2.txt'
 classify_nb(train_file, test_file)
 
 
+# f = open('failing.txt', 'r')
+# f2 = open('example_test2.txt', 'w')
+# for line in f:
+#     new = line[line.find("[")+1:line.find("]")].replace('\'', '')
+#     new = new.replace(' ', '')
+#     f2.write(new)
+#     f2.write('\n')
+# f.close()
+# f2.close()
 
 # f = open(train_file)
 # f2 = open('basictraining.csv', 'w')
