@@ -26,7 +26,7 @@ def separate_yes_no(training_data):
     return output_dict
 
 def get_folds(training_filename, num_folds):
-        #get training and test data
+    #get training and test data
     f_train = open(training_filename, 'r')
     training_data = f_train.readlines()
 
@@ -36,11 +36,13 @@ def get_folds(training_filename, num_folds):
     class_separation = separate_yes_no(training_data)
     num_yes = len(class_separation['yes']) - 1
     num_no = len(class_separation['no']) - 1
-    print(num_yes, num_no)
+    
+    #create a list of folds
     fold_list = []
     for i in range(num_folds):
         fold_list.append([])
     
+    #assign yes instances to each fold one by one
     count = 0
     while num_yes >= 0:
         fold = count%num_folds
@@ -48,6 +50,7 @@ def get_folds(training_filename, num_folds):
         num_yes -= 1
         count += 1
     
+    #assign no instances to each fold one by one
     count = 0
     while num_no >= 0:
         fold = count%num_folds
@@ -55,13 +58,7 @@ def get_folds(training_filename, num_folds):
         num_no -= 1
         count += 1
     
-    c = 0
-    for i in fold_list:
-        for j in i:
-            c += 1
-
-    print(c)
-
+    #write to the output file 
     f = open('pima-folds.csv', 'w')
     fold_count = 1
     for fold in fold_list:
