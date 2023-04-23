@@ -186,9 +186,9 @@ def classify_nb(training_filename, testing_filename):
     #print(output_list)
     return output_list
 
-train_file = 'a2\\data\\pima.csv'
-test_file = 'a2\\data\\example_test.csv'
-classify_nb(train_file, test_file)
+# train_file = 'a2\\data\\pima.csv'
+# test_file = 'a2\\data\\example_test.csv'
+# classify_nb(train_file, test_file)
 
 
 # f = open('failing.txt', 'r')
