@@ -1,0 +1,87 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.MultilayerPerceptron -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a
+Relation:     pima_CFS-Weka
+Instances:    768
+Attributes:   6
+              Glucose conc.
+              Insulin (mu U/ml)
+              BMI (kg/m^2)
+              Diabetes pedigree function
+              Age (years)
+              Class {yes,no}
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Sigmoid Node 0
+    Inputs    Weights
+    Threshold    2.327007317568021
+    Node 2    -1.6955609012270316
+    Node 3    -5.98915294500518
+    Node 4    -2.4465800300980427
+Sigmoid Node 1
+    Inputs    Weights
+    Threshold    -2.327007317568018
+    Node 2    1.6955609012270378
+    Node 3    5.989152945005105
+    Node 4    2.446580030098039
+Sigmoid Node 2
+    Inputs    Weights
+    Threshold    -4.153312836799438
+    Attrib Glucose conc.    -7.391218359737068
+    Attrib Insulin (mu U/ml)    -5.533583462890951
+    Attrib BMI (kg/m^2)    -5.476979827892671
+    Attrib Diabetes pedigree function    -2.255637148968371
+    Attrib Age (years)    0.984085607483582
+Sigmoid Node 3
+    Inputs    Weights
+    Threshold    -16.07025563819156
+    Attrib Glucose conc.    -6.220758626337329
+    Attrib Insulin (mu U/ml)    -14.16430757995129
+    Attrib BMI (kg/m^2)    -2.9417944811225865
+    Attrib Diabetes pedigree function    -3.8418651705078326
+    Attrib Age (years)    2.958903527935695
+Sigmoid Node 4
+    Inputs    Weights
+    Threshold    -7.7159257425144245
+    Attrib Glucose conc.    -3.8808747218362627
+    Attrib Insulin (mu U/ml)    8.52124507237893
+    Attrib BMI (kg/m^2)    -1.5983016203880869
+    Attrib Diabetes pedigree function    -2.7411889729622874
+    Attrib Age (years)    -13.483032388384332
+Class yes
+    Input
+    Node 0
+Class no
+    Input
+    Node 1
+
+
+Time taken to build model: 0.2 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         582               75.7813 %
+Incorrectly Classified Instances       186               24.2188 %
+Kappa statistic                          0.4642
+Mean absolute error                      0.3036
+Root mean squared error                  0.4059
+Relative absolute error                 66.798  %
+Root relative squared error             85.1653 %
+Total Number of Instances              768     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.642    0.180    0.656      0.642    0.649      0.464    0.820     0.672     yes
+                 0.820    0.358    0.810      0.820    0.815      0.464    0.820     0.895     no
+Weighted Avg.    0.758    0.296    0.757      0.758    0.757      0.464    0.820     0.817     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 172  96 |   a = yes
+  90 410 |   b = no
+

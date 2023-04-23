@@ -1,0 +1,125 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.MultilayerPerceptron -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a
+Relation:     pima_norm_headers
+Instances:    768
+Attributes:   9
+              Pregnancies
+              Glucose conc.
+              blood pressure (mm Hg)
+              Skin thickness (mm)
+              Insulin (mu U/ml)
+              BMI (kg/m^2)
+              Diabetes pedigree function
+              Age (years)
+              Class
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Sigmoid Node 0
+    Inputs    Weights
+    Threshold    2.684099458622719
+    Node 2    -3.446720796415017
+    Node 3    -6.463409207468265
+    Node 4    -2.340158665865892
+    Node 5    -3.2715981870315325
+    Node 6    -1.5550369351724318
+Sigmoid Node 1
+    Inputs    Weights
+    Threshold    -2.6840994586163767
+    Node 2    3.446720796410357
+    Node 3    6.463409207381232
+    Node 4    2.3401586658624263
+    Node 5    3.2715981870251327
+    Node 6    1.5550369351700664
+Sigmoid Node 2
+    Inputs    Weights
+    Threshold    -10.592538819052333
+    Attrib Pregnancies    -0.33516325458505564
+    Attrib Glucose conc.    -6.121736416616603
+    Attrib blood pressure (mm Hg)    -2.41699946947054
+    Attrib Skin thickness (mm)    1.5226886815871241
+    Attrib Insulin (mu U/ml)    -14.265456512934685
+    Attrib BMI (kg/m^2)    3.4437915172532714
+    Attrib Diabetes pedigree function    -1.880376015456901
+    Attrib Age (years)    5.565855353219893
+Sigmoid Node 3
+    Inputs    Weights
+    Threshold    -12.30317311569688
+    Attrib Pregnancies    -0.8701162559649899
+    Attrib Glucose conc.    -3.6374087504579284
+    Attrib blood pressure (mm Hg)    -3.873508545770443
+    Attrib Skin thickness (mm)    1.3424581835391787
+    Attrib Insulin (mu U/ml)    -7.81759173001974
+    Attrib BMI (kg/m^2)    -12.908594445736558
+    Attrib Diabetes pedigree function    2.64361057629802
+    Attrib Age (years)    6.882914789598541
+Sigmoid Node 4
+    Inputs    Weights
+    Threshold    -6.07345841214611
+    Attrib Pregnancies    -1.5841820641930264
+    Attrib Glucose conc.    -5.602268701126981
+    Attrib blood pressure (mm Hg)    6.136974516427105
+    Attrib Skin thickness (mm)    9.913875173469894
+    Attrib Insulin (mu U/ml)    -2.402973557396368
+    Attrib BMI (kg/m^2)    -7.2174057172003625
+    Attrib Diabetes pedigree function    0.06217409760734591
+    Attrib Age (years)    -7.680573670329536
+Sigmoid Node 5
+    Inputs    Weights
+    Threshold    -10.727948338014983
+    Attrib Pregnancies    -0.7595646182348954
+    Attrib Glucose conc.    -4.528471735301178
+    Attrib blood pressure (mm Hg)    -0.9917554769495457
+    Attrib Skin thickness (mm)    -10.952650538756492
+    Attrib Insulin (mu U/ml)    8.956117863791118
+    Attrib BMI (kg/m^2)    2.5036459617570515
+    Attrib Diabetes pedigree function    0.04245524872998793
+    Attrib Age (years)    -10.6752913319472
+Sigmoid Node 6
+    Inputs    Weights
+    Threshold    -12.55870308971869
+    Attrib Pregnancies    0.27094891317829556
+    Attrib Glucose conc.    -2.428049124113972
+    Attrib blood pressure (mm Hg)    -0.1371747247257603
+    Attrib Skin thickness (mm)    -1.2609894641655024
+    Attrib Insulin (mu U/ml)    -3.6468542091592737
+    Attrib BMI (kg/m^2)    -7.766169682745093
+    Attrib Diabetes pedigree function    -12.337927865310096
+    Attrib Age (years)    -0.5626010726924453
+Class yes
+    Input
+    Node 0
+Class no
+    Input
+    Node 1
+
+
+Time taken to build model: 0.39 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         579               75.3906 %
+Incorrectly Classified Instances       189               24.6094 %
+Kappa statistic                          0.4607
+Mean absolute error                      0.2942
+Root mean squared error                  0.4226
+Relative absolute error                 64.7259 %
+Root relative squared error             88.6682 %
+Total Number of Instances              768     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.657    0.194    0.645      0.657    0.651      0.461    0.803     0.654     yes
+                 0.806    0.343    0.814      0.806    0.810      0.461    0.803     0.879     no
+Weighted Avg.    0.754    0.291    0.755      0.754    0.754      0.461    0.803     0.800     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 176  92 |   a = yes
+  97 403 |   b = no
+
