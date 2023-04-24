@@ -71,6 +71,6 @@ def get_folds(training_filename, num_folds):
 
 
 
-
-train_file = 'a2\\data\\pima.csv'
-get_folds(train_file, 10)
+if __name__ == '__main__':
+    train_file = 'a2\\data\\pima.csv'
+    get_folds(train_file, 10)
