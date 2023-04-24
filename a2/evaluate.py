@@ -5,10 +5,12 @@ Evaluates KNN and Naive Bayes classifiers using 10-fold stratified cross-validat
 from classifiers import *
 from generate_folds import separate_yes_no
 import csv
+import itertools
 
 # Global variables for now because I cbf and it's not marked.
 train_filename = 'data/tmp_train.csv'
 test_filename = 'data/tmp_test.csv'
+test_class_filename = 'data/tmp_true_test_class.csv'
 
 def create_files(data_filename, num_folds, test_fold):
     '''
@@ -55,21 +57,37 @@ def create_files(data_filename, num_folds, test_fold):
     #write to the output files
     f_train_folds = open(train_filename, 'w')
     f_test_folds = open(test_filename, 'w')
+    f_test_class = open(test_class_filename, 'w')
     fold_count = 1
     for fold in fold_list:
         for instance in fold:
             if(fold_count == test_fold):
-                f_test_folds.write(instance)
+                # Strip the class from the test data and save in seperate files
+                if 'no' in instance:
+                    write_test = instance.replace(',no', '')
+                    write_class = 'no'
+                elif 'yes' in instance:
+                    write_test = instance.replace(',yes', '')
+                    write_class = 'yes'
+
+                f_test_folds.write(write_test)
                 f_test_folds.write('\n')
+                f_test_class.write(write_class)
+                f_test_class.write('\n')
+
             else:
                 f_train_folds.write(instance)
                 f_train_folds.write('\n')
                 
         fold_count += 1
 
+
+    f_train_folds.close()
+    f_test_folds.close()
+    f_test_class.close()
     return
 
-# Check if create_files is working as intended
+# # Check if create_files function is working as intended
 # if __name__ == '__main__':
 #     create_files('data/pima.csv', 10, 1)
 
@@ -82,28 +100,36 @@ def evaluate(data_filename, algorithm, k = 1):
     Returns accuracy as a percentage.
     '''
     accuracy_vector = []
-    # train_data = []
-    # test_data = []
-    # selection_list = list(range(10))
 
-    # train_folds = selection_list.copy()
-    # test_fold = train_folds.pop()
+    n_folds = 10
 
-    # train_data = [train_data + full_data[start_intervals[n]:end_intervals[n]] for n in train_folds]
-    # test_data = full_data[start_intervals[test_fold]:end_intervals[test_fold]]
-    
-    # Separate the classes of the test data from the data itself
-    test_classes = [i[len(i)- 1] for i in test_data]
-    test_data = [i[0:len(i) - 1] for i in test_data]
+    # Move through and test each fold against the algorithm trained on the other folds
+    for i in range(n_folds, 0, -1):
 
-    # if(algorithm == 'KNN'):
-    #     class_prediction = classify_nn(train_filename, test_filename, k)
+        # run create files for each fold seperation
+        create_files(data_filename, n_folds, i)
 
-    # if(algorithm == 'NB'):
-    #     class_prediction = classify_nb(train_data, test_data)
+        # Get the true test classes
+        f_test_classes = open(test_class_filename, 'r')
+        true_test_classes = list(itertools.chain.from_iterable(list(csv.reader(f_test_classes))))
 
+        f_test_classes.close()
+
+        if(algorithm == 'KNN'):
+            class_prediction = classify_nn(train_filename, test_filename, k)
+        elif(algorithm == 'NB'):
+            class_prediction = classify_nb(train_filename, test_filename)
+        else:
+            class_prediction = 0
+
+        # Compare the prediction with the true test value
+        num_correct = sum([class_prediction[i] == true_test_classes[i] for i in range(len(class_prediction))])
+        total_num = len(true_test_classes)
+        accuracy_vector.append((num_correct/total_num)*100)
+            
+    # Average the accuracy of each test
     if(len(accuracy_vector) != 0):
-        accuracy = sum(accuracy_vector)/len(accuracy_vector)
+        accuracy = sum(accuracy_vector)/(len(accuracy_vector))
     else:
         accuracy = 0
 
@@ -113,13 +139,19 @@ def evaluate(data_filename, algorithm, k = 1):
 if __name__ == '__main__':
     # Evaluate the classifiers
     data_file_raw = 'data/pima.csv'
-    data_file_CFS = 'data/pima_CFS_no_headers.csv'
+    data_file_CFS = 'data/pima_CFS_no_header.csv'
     print("Evaluating 1NN Classifier:")
-    print("Raw data accuracy = " + str(evaluate(data_file_raw, 1, 1)) + "%\n")
-    print("CFS data accuracy = " + str(evaluate(data_file_CFS, 1, 1)) + "%\n")
+    print("Raw data accuracy = " + str(evaluate(data_file_raw, 'KNN', 1)) + "%\n")
+    print("CFS data accuracy = " + str(evaluate(data_file_CFS, 'KNN', 1)) + "%\n")
+    
+    print("\n----------------------------------\n")
 
-    # print("Evaluating 5NN Classifier:")
-    # print("Accuracy = " + str(evaluate(data_file, 1, 5)) + "%\n")
+    print("Evaluating 5NN Classifier:")
+    print("Raw data accuracy = " + str(evaluate(data_file_raw, 'KNN', 5)) + "%\n")
+    print("CFS data accuracy = " + str(evaluate(data_file_CFS, 'KNN', 5)) + "%\n")
 
-    # print("Evaluating NB Classifier:")
-    # print("Accuracy = " + str(evaluate(data_file, 2)) + "%\n")
+    print("\n----------------------------------\n")
+
+    print("Evaluating NB Classifier:")
+    print("Raw data accuracy =" + str(evaluate(data_file_raw, 'NB')) + "%\n")
+    print("CFS data accuracy = " + str(evaluate(data_file_CFS, 'NB')) + "%\n")
